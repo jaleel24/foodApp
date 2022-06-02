@@ -1,0 +1,17 @@
+[33mcommit 904725cabe3dfc4283294f9bb4f158a9a899148c[m[33m ([m[1;36mHEAD -> [m[1;32mfoodApp1[m[33m, [m[1;32mmaster[m[33m)[m
+Author: jaleel24 <36284471+jaleel24@users.noreply.github.com>
+Date:   Wed Jun 1 15:30:56 2022 -0400
+
+    added modal.js and modified other files as well
+
+[33mcommit 100b9bea248d063b83917db4f959f565ed011855[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: jaleel24 <36284471+jaleel24@users.noreply.github.com>
+Date:   Wed Jun 1 12:06:28 2022 -0400
+
+    first upload of static food app, alot has to come
+
+[33mcommit d4bd484612cc025a4153515d9c966d1fd6bf3f3d[m
+Author: jaleel24 <36284471+jaleel24@users.noreply.github.com>
+Date:   Mon May 30 21:31:04 2022 -0400
+
+    Initialize project using Create React App

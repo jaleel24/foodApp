@@ -1,14 +1,34 @@
-const Backdrop = () =>{
-    return <div>
+// ? this is highlighted
+import { Fragment } from "react";
+// import classes from './Modal.module.css';
+import  ReactDOM  from 'react-dom';
 
-    </div>
+const Backdrop = (props) => {
+  return <div />;
 };
-const ModalOverlays = () =>{
-    return <div>
-        
+const ModalOverlays = (props) => {
+  return (
+    <div class="bg-white">
+      <div>{props.children}</div>
     </div>
+  );
 };
-
-const Modal = () => {
-    return };
+const portalElement = document.getElementById('overlays');
+const Modal = (props) => {
+    
+  return (
+    <Fragment>
+      {/* <Backdrop />
+      <ModalOverlays /> */}
+      {/* 
+        //? we are going to use a portal here so that our html content is not all over the place 
+        //? 2 arguments 
+      //? 1- what to portal
+      //? 2- where to portal
+      */}
+      {ReactDOM.createPortal(<Backdrop />, portalElement )}
+      {ReactDOM.createPortal(<ModalOverlays>{props.children}</ModalOverlays>, portalElement)}
+    </Fragment>
+  );
+};
 export default Modal;
