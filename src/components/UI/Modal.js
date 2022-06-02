@@ -1,13 +1,14 @@
 // ? this is highlighted
 import { Fragment } from "react";
+import classes from './Modal.module.css';
 import  ReactDOM  from 'react-dom';
 
 const Backdrop = (props) => {
-  return <div class="inset-y-0 fixed"></div>;
+  return <div className={ classes.backdrop } />;
 };
 const ModalOverlays = (props) => {
   return (
-    <div class="bg-white rounded-xl translate-y-64   px-3 mx-44 ">
+    <div className={classes.modal}>
       <div>{props.children}</div>
     </div>
   );
