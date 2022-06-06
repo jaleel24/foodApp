@@ -1,8 +1,9 @@
-import {Fragment , useState} from "react";
+import { useState} from "react";
 import './App.css';
 import Header from './components/Layout/Header';
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
+import CartProvider from "./store/CartProvider";
 function App(props) {
   // use the state where we are using the component
   const [cartIsVisible, setCartIsVisible] = useState(false);
@@ -14,14 +15,14 @@ function App(props) {
     setCartIsVisible(false)
   }
   return (
-   <Fragment>
+   <CartProvider>
      {/* < Cart hide={hideCartHandler}/>  */}
      {cartIsVisible && < Cart hide={hideCartHandler} /> }
       <Header show={showCartHandler} ></Header>
         <main>
           <Meals/>
         </main>
-   </Fragment>
+   </CartProvider>
   );
 }
 
