@@ -4,12 +4,15 @@ import Input from "../../UI/Input";
 const MealItemForm = (props) => {
         const amountInputRef= useRef();
        const [amountIsValid , setAmountisValid] = useState(true);
+
     const submitHandler = (event)=>{
-        event.prevenDefault();
+        event.preventDefault();
 
         const enteredAmount = amountInputRef.current.value;
-        const enteredAmountNumber = +enteredAmount;
-        if(enteredAmount.trim.length === 0 || enteredAmountNumber < 1 || enteredAmountNumber > 5){
+        console.log(enteredAmount);
+        const enteredAmountNumber =+enteredAmount;
+       
+        if(enteredAmount.trim().length === 0 || enteredAmountNumber < 1 || enteredAmountNumber > 5){
            setAmountisValid(false);
             return ;
         }

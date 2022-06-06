@@ -1,9 +1,18 @@
+import { useContext } from "react";
 import MealItemForm from "./MealItemForm";
+import CartContext from "../../../store/cart-context";
+
 const MealItems = (props) =>{
+     const cartCtx=  useContext(CartContext);
     const price = `$${props.price.toFixed(2)}`;
 
     const addToCartHandler = (amount)=>{
-            
+        cartCtx.addItem({
+            id:props.id,
+            name:props.name,
+            amount:amount,
+            price:props.price
+        });
     }
     return(
         <li class="py-4 flex justify-between">
@@ -15,7 +24,7 @@ const MealItems = (props) =>{
 
         {/* we are going to use the seprate MealItemForm which is another componinet for reusability */}
         <div>
-             <MealItemForm /> 
+             <MealItemForm onAddToCart={addToCartHandler}/> 
         </div>
       
        
