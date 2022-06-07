@@ -1,58 +1,83 @@
 import React, { useReducer } from "react";
 import CartContext from "./cart-context";
-   
+
 const defaultCartState = {
-    items:[],
-    totalAmount:0
-}; 
+  items: [],
+  totalAmount: 0,
+};
 
 //! state is the last state snapshot
 //! action is dealt by u in your code to dispatch the action
 //! we have defined the reducer function outside the main function since it does not need anything from its surrounding
 //! plus we dont want to be recreated everytime the component reders
-const cartReducer = (state, action)=>{
+const cartReducer = (state, action) => {
+  if (action.type === "ADD") {
+    const updatedTotaAmount =
+      state.totalAmount + action.item.price * action.item.amount;
 
-    if(action.type === 'ADD'){
-        const updatedItems = state.items.concat(action.item);
-        const updatedTotaAmount = state.totalAmount + action.item.price * action.item.amount;
+    //! over here we are checking the if the item is already in there and if it find its index
+    const existingCartItemIndex = state.items.findIndex(
+      (items) => items.id === action.item.id
+    );
+    //! since we have the index now we are getting the item and storing it  in the existingCartItem
+    const existingCartItem = state.items[existingCartItemIndex];
 
-        return{
-            items: updatedItems,
-            totalAmount: updatedTotaAmount
-        };
+    let updatedItems;
+    //! if the item exists means its true then creating a new object which is updatedITem
+    //!  copy the item itself and update the amount because it was already in there so add the amount of existing in the items
+
+    if (existingCartItem) {
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount + action.item.amount,
+      };
+      //! another array which will store all the previous items and then
+      updatedItems = [...state.items];
+      updatedItem[existingCartItemIndex] = updatedItem;
     }
-    return defaultCartState;
+    //! if the item is not the part of existing array then
+    else {
+      updatedItems = state.items.concat(action.item);
+    }
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotaAmount,
+    };
+  }
+  return defaultCartState;
 };
 
+const CartProvider = (props) => {
+  //! state is the last state snapshot
+  //! action is dealt by u in your code to dispatch the action
+  const [cartState, cartDispatchAction] = useReducer(
+    cartReducer,
+    defaultCartState
+  );
 
-const CartProvider = (props)=>{
+  const addItemToCartHandler = (item) => {
+    cartDispatchAction({
+      type: "ADD",
+      item: item,
+    });
+  };
+  const removeItemFromCartHandler = (id) => {
+    cartDispatchAction({ type: "REMOVE", id: id });
+  };
 
-    //! state is the last state snapshot
-    //! action is dealt by u in your code to dispatch the action
-    const [cartState , cartDispatchAction ] = useReducer( cartReducer , defaultCartState);
-
-    const addItemToCartHandler =(item)=>{
-        cartDispatchAction({ 
-            type:'ADD', 
-            item:item
-        })
-    }
-    const removeItemFromCartHandler = (id)=>{
-        cartDispatchAction({type:'REMOVE', id:id});
-    }
-    
-    //! just a constant which is an object
-    const cartContext ={
-        items:cartState.items, //! curState have access to items currently present
-        totalAmount:cartState.totalAmount,
-        addItem:addItemToCartHandler, //! just a pointer towards the function above
-        removeItem:removeItemFromCartHandler //! just a pointer towards the function above
-    };
-    //context has just value prop which points to the context 
-    return <CartContext.Provider value ={cartContext}>
-        
-        {props.children}
+  //! just a constant which is an object
+  const cartContext = {
+    items: cartState.items, //! curState have access to items currently present
+    totalAmount: cartState.totalAmount,
+    addItem: addItemToCartHandler, //! just a pointer towards the function above
+    removeItem: removeItemFromCartHandler, //! just a pointer towards the function above
+  };
+  //context has just value prop which points to the context
+  return (
+    <CartContext.Provider value={cartContext}>
+      {props.children}
     </CartContext.Provider>
-
+  );
 };
 export default CartProvider;
