@@ -45,6 +45,35 @@ const cartReducer = (state, action) => {
       totalAmount: updatedTotaAmount,
     };
   }
+// NOw REMOVE CASE
+  if(action.type ==='REMOVE'){
+
+     // over here we are checking the if the item is already in there and if it find its index
+     
+     const existingCartItemIndex = state.items.findIndex(
+        (items) => items.id === action.id
+      );
+     
+      // since we have the index now we are getting the item and storing it  in the existingCartItem
+    const existingItem = state.items[existingCartItemIndex];
+    const updatedTotalAmount = state.totalAmount - existingItem.price;
+    
+    let updatedItems;
+    if(existingItem.amount ===1){
+        // keep the items where the item.id is not equal action.id 
+        updatedItems = state.items.filter( item => item.id !== action.id);
+    }
+    else{
+       const  updatedItem = { ...existingItem , amount :existingItem.amount - 1};
+       updatedItems=[...state.items];
+        updatedItem[existingCartItemIndex] = updatedItem
+    }
+    return{
+        items: updatedItems,
+        totalAmount: updatedTotalAmount
+    }
+   
+  }
   return defaultCartState;
 };
 
