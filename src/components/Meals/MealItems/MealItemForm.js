@@ -9,7 +9,7 @@ const MealItemForm = (props) => {
         event.preventDefault();
 
         const enteredAmount = amountInputRef.current.value;
-        console.log(enteredAmount);
+        //console.log(enteredAmount);
         const enteredAmountNumber =+enteredAmount;
        
         if(enteredAmount.trim().length === 0 || enteredAmountNumber < 1 || enteredAmountNumber > 5){
@@ -26,10 +26,10 @@ const MealItemForm = (props) => {
         <form class="flex" onSubmit={submitHandler}>
            
             <Input 
-                label={"Amount :"}
+                label="Amount :"
                 ref ={amountInputRef}
                 input={{             
-                id:'amount',
+                id:'amount_' + props.id,
                 type:'number',
                 min:'1',
                 max:'5',
