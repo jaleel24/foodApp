@@ -33,7 +33,7 @@ const cartReducer = (state, action) => {
       };
       //! another array which will store all the previous items and then
       updatedItems = [...state.items];
-      updatedItem[existingCartItemIndex] = updatedItem;
+      updatedItems[existingCartItemIndex] = updatedItem;
     }
     //! if the item is not the part of existing array then
     else {
@@ -59,14 +59,18 @@ const cartReducer = (state, action) => {
     const updatedTotalAmount = state.totalAmount - existingItem.price;
     
     let updatedItems;
-    if(existingItem.amount ===1){
+    if(existingItem.amount === 1){
         // keep the items where the item.id is not equal action.id 
-        updatedItems = state.items.filter( item => item.id !== action.id);
+       // updatedItems = state.items.filter( item => item.id !== action.id);
+        updatedItems = state.items.filter(item => item.id !== action.id);
     }
     else{
-       const  updatedItem = { ...existingItem , amount :existingItem.amount - 1};
-       updatedItems=[...state.items];
-        updatedItem[existingCartItemIndex] = updatedItem
+    //    const  updatedItem = { ...existingItem , amount : existingItem.amount - 1};
+    //    updatedItems=[...state.items];
+    //     updatedItem[existingCartItemIndex] = updatedItem
+    const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
+    updatedItems = [...state.items];
+    updatedItems[existingCartItemIndex] = updatedItem;
     }
     return{
         items: updatedItems,
