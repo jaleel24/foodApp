@@ -1,3 +1,4 @@
+//import { useState } from "react";
 import Card from "../UI/Card";
 import MealItems from "./MealItems/MealItems";
 const DUMMY_MEALS = [
@@ -27,7 +28,19 @@ const DUMMY_MEALS = [
   },
 ];
 
+
 const AvailableMeals = () => {
+  //! to Store meals from backend we need useState
+  // const[meals, setMeals] = useState([]);
+
+  
+  //   fetch("https://reacthttp-e48f0-default-rtdb.firebaseio.com/meals").then(response =>{
+  //     return response.json();
+  //   }).then(data =>{
+  //     setMeals(data);
+  //   })
+  
+ 
   const mealList = DUMMY_MEALS.map((meals) => {
     return (
       <MealItems
