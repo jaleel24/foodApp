@@ -78,6 +78,11 @@ const cartReducer = (state, action) => {
     }
    
   }
+
+  if(action.type ==='CLEAR'){
+  return defaultCartState;
+  }
+
   return defaultCartState;
 };
 
@@ -99,12 +104,17 @@ const CartProvider = (props) => {
     cartDispatchAction({ type: "REMOVE", id: id });
   };
 
+  const clearCartHandler = () => {
+    cartDispatchAction({ type: "CLEAR" });
+  };
+
   //! just a constant which is an object
   const cartContext = {
     items: cartState.items, //! curState have access to items currently present
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler, //! just a pointer towards the function above
     removeItem: removeItemFromCartHandler, //! just a pointer towards the function above
+    clearCart:clearCartHandler
   };
   //context has just value prop which points to the context
   return (

@@ -51,8 +51,16 @@ const confirmOrderHandler = (event)=>{
         if(!formIsValid){
             return;
         }
+         props.onConfirmOrder(
+            {
+                name:name,
+                street:street,
+                city:city,
+                postalCode:postalCode
+
+            }
+         );
         console.log('Submitted');
-         console.log(name,street, city, postalCode)
         nameResetHandler();
         streetResetHandler();
         cityResetHandler();
